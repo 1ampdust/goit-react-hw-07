@@ -1,9 +1,7 @@
-//ContactList.jsx
 import css from "./ContactList.module.css";
 import Contact from "../Contact/Contact";
 import { useSelector } from "react-redux";
-import { selectNameFilter } from "../../redux/filtersSlice";
-import { selectContacts } from "../../redux/contactsSlice";
+import { selectNameFilter, selectContacts } from "../../redux/contactsSlice";
 
 const getVisibleContacts = (contacts, filter) => {
   if (filter.length > 0) {
@@ -18,12 +16,13 @@ const getVisibleContacts = (contacts, filter) => {
 const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectNameFilter);
-  const filterContacts = getVisibleContacts(contacts, filter);
+  const filteredContacts = getVisibleContacts(contacts, filter);
+  
   return (
     <div>
-      {filterContacts && filterContacts.length > 0 ? (
+      {filteredContacts && filteredContacts.length > 0 ? (
         <ul className={css.contactsList}>
-          {filterContacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <Contact key={contact.id} contact={contact} />
           ))}
         </ul>
